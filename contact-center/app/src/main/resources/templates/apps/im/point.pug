@@ -113,7 +113,15 @@ script(type='text/javascript')
 
 script(type='text/javascript').
     var genUrl = function (subPath, query) {
-        return '!{baseUrl}/im/' + subPath + '?' + Qs.stringify(query);
+        let url = '!{baseUrl}/im/' + subPath + '?' + Qs.stringify(query);
+        //taoee的处理
+        if (getCookie) {
+            let token = getCookie("token");
+            let username = getCookie("user_id");
+            if (token) url += '&token=' + token
+            if (username) url += '&username=' + username
+        }
+        return url;
     };
 
     var data = {};

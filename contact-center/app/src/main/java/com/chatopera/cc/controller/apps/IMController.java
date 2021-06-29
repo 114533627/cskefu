@@ -627,6 +627,10 @@ public class IMController extends Handler {
             request.getSession().setAttribute("sessionid", sessionMessageObj.get("sessionid"));
             request.getSession().setAttribute("Sessionuid", sessionMessageObj.get("uid"));
         }
+        //taoee相关处理
+        String username = request.getParameter("username");
+        String token = request.getParameter("token");
+        logger.info("Taoee username {}, token {}", username, token);
 
         ModelAndView view = request(super.createView("/apps/im/index"));
         Optional<BlackEntity> blackOpt = cache.findOneBlackEntityByUserIdAndOrgi(userid, Constants.SYSTEM_ORGI);
@@ -641,17 +645,19 @@ public class IMController extends Handler {
             } else {
                 randomUserId = MainUtils.genIDByKey(sessionid);
             }
-            String nickname;
+            String nickname = username; //taoee相关处理
 
-            if (sessionMessageObj != null) {
-                nickname = ((Map) sessionMessageObj).get("username") + "@" + ((Map) sessionMessageObj).get(
-                        "company_name");
-            } else if (request.getSession().getAttribute("Sessionusername") != null) {
-                String struname = (String) request.getSession().getAttribute("Sessionusername");
-                String strcname = (String) request.getSession().getAttribute("Sessioncompany_name");
-                nickname = struname + "@" + strcname;
-            } else {
-                nickname = "Guest_" + "@" + randomUserId;
+            if(StringUtils.isBlank(nickname)){
+                if (sessionMessageObj != null) {
+                    nickname = ((Map) sessionMessageObj).get("username") + "@" + ((Map) sessionMessageObj).get(
+                            "company_name");
+                } else if (request.getSession().getAttribute("Sessionusername") != null) {
+                    String struname = (String) request.getSession().getAttribute("Sessionusername");
+                    String strcname = (String) request.getSession().getAttribute("Sessioncompany_name");
+                    nickname = struname + "@" + strcname;
+                } else {
+                    nickname = "Guest_" + "@" + randomUserId;
+                }
             }
 
             view.addObject("nickname", nickname);
@@ -696,7 +702,7 @@ public class IMController extends Handler {
                 map.addAttribute("title", title);
             }
             if (StringUtils.isNotBlank(traceid)) {
-                map.addAttribute("url", URLEncoder.encode(url,"utf-8"));
+                map.addAttribute("url", URLEncoder.encode(url, "utf-8"));
             }
 
             map.addAttribute("cskefuport", request.getServerPort());

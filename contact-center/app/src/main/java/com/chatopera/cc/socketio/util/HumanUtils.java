@@ -67,14 +67,17 @@ public class HumanUtils {
          * 访客的昵称
          */
         // TODO 确定该值代表访客昵称
-        String userNickName = (agentUser != null) && StringUtils.isNotBlank(
-                agentUser.getNickname()) ? agentUser.getNickname() : "";
+        String userNickName = chatMessage.getUsername();//如果传了username 就使用传的username的值。 TAOEE
+        if(StringUtils.isBlank(userNickName)) {
+             userNickName = (agentUser != null) && StringUtils.isNotBlank(
+                    agentUser.getNickname()) ? agentUser.getNickname() : "";
 
-        if (agentUser != null && StringUtils.isNotBlank(agentUser.getAgentserviceid())) {
-            AgentService agentService = getAgentServiceRes().findOne(
-                    agentUser.getAgentserviceid());
-            if (StringUtils.isNotBlank(agentService.getUsername())) {
-                userNickName = agentService.getUsername();
+            if (agentUser != null && StringUtils.isNotBlank(agentUser.getAgentserviceid())) {
+                AgentService agentService = getAgentServiceRes().findOne(
+                        agentUser.getAgentserviceid());
+                if (StringUtils.isNotBlank(agentService.getUsername())) {
+                    userNickName = agentService.getUsername();
+                }
             }
         }
 
