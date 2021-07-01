@@ -64,6 +64,7 @@ block content
                                 th 联系人姓名
                                 th 手机
                                 th 邮件
+                                th TEID
                                 th(width='30px') 性别
                                 th 生日
                                 th 类型
@@ -81,6 +82,8 @@ block content
                                             span.ukefu-phone-number= contacts.mobileno
                                         td(title= contacts.email)
                                             p= contacts.email
+                                        td(title= contacts.ccode)
+                                            p= contacts.ccode
                                         td
                                             if (contacts.gender && contacts.gender == '1')
                                                 span= '男'

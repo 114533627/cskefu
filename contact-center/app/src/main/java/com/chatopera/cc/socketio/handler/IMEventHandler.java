@@ -108,6 +108,8 @@ public class IMEventHandler {
             if (StringUtils.isBlank(nickname)) {
                 logger.info("[onConnect] reset nickname as it does not present.");
                 nickname = "Guest_" + user;
+            }else {
+                HumanUtils.updateContacts(user,orgi,nickname);
             }
 
             if (StringUtils.isNotBlank(user)) {

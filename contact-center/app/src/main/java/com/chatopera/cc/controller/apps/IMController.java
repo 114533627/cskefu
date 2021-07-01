@@ -482,6 +482,23 @@ public class IMController extends Handler {
             return null;
         }
 
+        String username = request.getParameter("username");
+
+        if(StringUtils.isNotBlank(username)){
+            agentUserContactsRes.findOneByUseridAndOrgi(
+                    userid, orgi).ifPresent(p -> {
+                if (MainContext.hasModule(Constants.CSKEFU_MODULE_CONTACTS) && StringUtils.isNotBlank(
+                        p.getContactsid())) {
+                    contactsRes.findOneById(p.getContactsid()).ifPresent(k -> {
+                        if(!StringUtils.equals(k.getCcode(),username)){
+                            k.setCcode(username);
+                            contactsRes.save(k);
+                        }
+                    });
+                }
+            });
+        }
+
         final SseEmitter emitter = new SseEmitter(30000L);
         if (StringUtils.isNotBlank(userid)) {
             emitter.onCompletion(new Runnable() {

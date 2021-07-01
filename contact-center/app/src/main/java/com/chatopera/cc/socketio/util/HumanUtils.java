@@ -24,7 +24,9 @@ import com.chatopera.cc.basic.MainContext.ReceiverType;
 import com.chatopera.cc.model.AgentService;
 import com.chatopera.cc.model.AgentUser;
 import com.chatopera.cc.model.AgentUserTask;
+import com.chatopera.cc.persistence.es.ContactsRepository;
 import com.chatopera.cc.persistence.repository.AgentServiceRepository;
+import com.chatopera.cc.persistence.repository.AgentUserContactsRepository;
 import com.chatopera.cc.persistence.repository.AgentUserTaskRepository;
 import com.chatopera.cc.socketio.message.ChatMessage;
 import com.chatopera.cc.socketio.message.Message;
@@ -38,6 +40,8 @@ public class HumanUtils {
     private final static Logger logger = LoggerFactory.getLogger(HumanUtils.class);
     private static AgentServiceRepository agentServiceRes;
     private static AgentUserTaskRepository agentUserTaskRes;
+    private static ContactsRepository contactsRes;
+    private static AgentUserContactsRepository agentUserContactsRes;
 
     /**
      * 发送文本消息
@@ -68,8 +72,8 @@ public class HumanUtils {
          */
         // TODO 确定该值代表访客昵称
         String userNickName = chatMessage.getUsername();//如果传了username 就使用传的username的值。 TAOEE
-        if(StringUtils.isBlank(userNickName)) {
-             userNickName = (agentUser != null) && StringUtils.isNotBlank(
+        if (StringUtils.isBlank(userNickName)) {
+            userNickName = (agentUser != null) && StringUtils.isNotBlank(
                     agentUser.getNickname()) ? agentUser.getNickname() : "";
 
             if (agentUser != null && StringUtils.isNotBlank(agentUser.getAgentserviceid())) {
@@ -172,5 +176,34 @@ public class HumanUtils {
             agentUserTaskRes = MainContext.getContext().getBean(AgentUserTaskRepository.class);
         }
         return agentUserTaskRes;
+    }
+
+    private static ContactsRepository getContactsRes() {
+        if (contactsRes == null) {
+            contactsRes = MainContext.getContext().getBean(ContactsRepository.class);
+        }
+        return contactsRes;
+    }
+    private static AgentUserContactsRepository getAgentUserContactsRes() {
+        if (agentUserContactsRes == null) {
+            agentUserContactsRes = MainContext.getContext().getBean(AgentUserContactsRepository.class);
+        }
+        return agentUserContactsRes;
+    }
+
+    public static void updateContacts(String user, String orgi, String username) {
+        getAgentUserContactsRes().findOneByUseridAndOrgi(
+                user, orgi).ifPresent(p -> {
+            if (MainContext.hasModule(Constants.CSKEFU_MODULE_CONTACTS) && StringUtils.isNotBlank(
+                    p.getContactsid())) {
+                getContactsRes().findOneById(p.getContactsid()).ifPresent(k -> {
+                    if(!StringUtils.equals(k.getCcode(),username)){
+                        k.setCcode(username);
+                        getContactsRes().save(k);
+                    }
+                });
+            }
+
+        });
     }
 }
