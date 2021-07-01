@@ -791,24 +791,6 @@ body .site-ukefu-nav .layui-nav-item{line-height: 40px}
     border: 1px solid #DCDCDC;
 	background-color:#dddddd;
 }
-
-.ukefu-im-point .ukefu-point-theme4{
-    box-sizing: border-box;
-    height: 79px;
-    width: 35px;
-    margin: 0 auto;
-    word-wrap:break-word;
-    overflow:hidden;
-    font-size: 12px;
-    text-align:center;
-    padding:1px 4px;
-    border: 1px solid #DCDCDC;
-    background-color: #fff;
-}
-.ukefu-im-point .ukefu-point-theme4:hover {
-    color: #fff;
-    background-color: #ff3366;
-}
 .ukefu-im-point .ukefu-point-theme2{
 	height: 70px;
 	border-radius: 3px; 

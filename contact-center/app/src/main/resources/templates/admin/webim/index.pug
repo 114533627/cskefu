@@ -86,14 +86,6 @@ block content
                                                                 br
                                                                 | 在线客服
                                                         .ok
-                                                            i.layui-icon
-                                                    .ukefu-im-point(class={'ukefu-point-checked': inviteData.consult_vsitorbtn_model == '4'}, data-class="ukefu-point-theme4", data-value="4")
-                                                        .ukefu-point-theme4(style="text-align:center;")
-                                                            .ukefu-im-point-text
-                                                                i.layui-icon 
-                                                                br
-                                                                | 客服
-                                                        .ok
                                                             i.layui-icon 
                                                     .ukefu-im-point(class={'ukefu-point-checked': inviteData.consult_vsitorbtn_model == '9'}, data-class="ukefu-point-theme9", data-value="9")
                                                         .ukefu-point-theme9
@@ -132,8 +124,6 @@ block content
                                                             .ukefu-pos(class={'ukefu-pos-checked': inviteData.consult_vsitorbtn_position == 'right,top'}, style="right:-40px;top:0px;") 右上
                                                         a(href="javascript:void(0)", onclick="$('#ukefu-point-theme').attr('style' , 'right:10px;top:70px;position: absolute;margin-top:0px;');$('.ukefu-pos').removeClass('ukefu-pos-checked');$(this).children().first().addClass('ukefu-pos-checked');$('#consult_vsitorbtn_position').val('right,middle');")
                                                             .ukefu-pos(class={'ukefu-pos-checked': !inviteData.consult_vsitorbtn_position || inviteData.consult_vsitorbtn_position == 'right,middle'}, style="right:-40px;top:70px;") 右中
-                                                        a(href="javascript:void(0)", onclick="$('#ukefu-point-theme').attr('style' , 'right:10px;top:70px;position: absolute;margin-top:0px;');$('.ukefu-pos').removeClass('ukefu-pos-checked');$(this).children().first().addClass('ukefu-pos-checked');$('#consult_vsitorbtn_position').val('right,middle,taoee');")
-                                                            .ukefu-pos(class={'ukefu-pos-checked': !inviteData.consult_vsitorbtn_position || inviteData.consult_vsitorbtn_position == 'right,middle,taoee'}, style="right: 10px;top:70px;") 淘亿
                                                         a(href="javascript:void(0)", onclick="$('#ukefu-point-theme').attr('style' , 'right:10px;bottom:10px;position: absolute;margin-top:0px;');$('.ukefu-pos').removeClass('ukefu-pos-checked');$(this).children().first().addClass('ukefu-pos-checked');$('#consult_vsitorbtn_position').val('right,bottom');")
                                                             .ukefu-pos(class={'ukefu-pos-checked': inviteData.consult_vsitorbtn_position == 'right,bottom'}, style="right:-40px;bottom:0px;") 右下
                                                 .ukefu-webim-prop
