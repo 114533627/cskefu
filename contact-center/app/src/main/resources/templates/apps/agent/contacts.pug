@@ -1,8 +1,12 @@
 if contacts
     ul.info-list
+        li
+            | TEID: #{contacts.ccode}
+
         li.ukefu-channel-tip
             | 姓名：
             span.tgreen #{contacts.name}
+
         li
             | 性别：
             if contacts.gender && contacts.gender == '1'
@@ -21,9 +25,6 @@ if contacts
             span.ukefu-phone-number #{contacts.mobileno}
         li
             | 邮件：#{contacts.email}
-
-        li
-            | TEID: #{contacts.ccode}
 
         li
             | SkypeID: #{contacts.skypeid}

@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class HumanUtils {
     private final static Logger logger = LoggerFactory.getLogger(HumanUtils.class);
@@ -197,7 +198,8 @@ public class HumanUtils {
             if (MainContext.hasModule(Constants.CSKEFU_MODULE_CONTACTS) && StringUtils.isNotBlank(
                     p.getContactsid())) {
                 getContactsRes().findOneById(p.getContactsid()).ifPresent(k -> {
-                    if(!StringUtils.equals(k.getCcode(),username)){
+                    Pattern compile = Pattern.compile("^\\d+");
+                    if(!StringUtils.equals(k.getCcode(),username) && compile.matcher(username).find()){
                         k.setCcode(username);
                         getContactsRes().save(k);
                     }

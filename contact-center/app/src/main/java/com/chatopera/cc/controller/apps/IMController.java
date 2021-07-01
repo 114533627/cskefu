@@ -71,6 +71,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/im")
@@ -490,7 +491,8 @@ public class IMController extends Handler {
                 if (MainContext.hasModule(Constants.CSKEFU_MODULE_CONTACTS) && StringUtils.isNotBlank(
                         p.getContactsid())) {
                     contactsRes.findOneById(p.getContactsid()).ifPresent(k -> {
-                        if(!StringUtils.equals(k.getCcode(),username)){
+                        Pattern compile = Pattern.compile("^\\d+");
+                        if(!StringUtils.equals(k.getCcode(),username) && compile.matcher(username).find()){
                             k.setCcode(username);
                             contactsRes.save(k);
                         }

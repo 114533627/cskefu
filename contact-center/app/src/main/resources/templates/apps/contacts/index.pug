@@ -61,10 +61,10 @@ block content
                             tr.design-sortable-tr
                                 th(style="width: 10px;")
                                     input#all(type='checkbox', onclick='$(\'.ids\').prop(\'checked\' , $(this).prop(\'checked\'));')
+                                th TEID
                                 th 联系人姓名
                                 th 手机
                                 th 邮件
-                                th TEID
                                 th(width='30px') 性别
                                 th 生日
                                 th 类型
@@ -76,14 +76,14 @@ block content
                                     tr.tdHasContorllor.design-dropable-td
                                         td(style="width:1%;")
                                             input(type="checkbox" class="ids" name="ids" value=contacts.id)
+                                        td(title= contacts.ccode)
+                                            p= contacts.ccode
                                         td(title=contacts.name)
                                             a(href="/apps/contacts/detail.pug?id=" + contacts.id)= contacts.name
                                         td
                                             span.ukefu-phone-number= contacts.mobileno
                                         td(title= contacts.email)
                                             p= contacts.email
-                                        td(title= contacts.ccode)
-                                            p= contacts.ccode
                                         td
                                             if (contacts.gender && contacts.gender == '1')
                                                 span= '男'
